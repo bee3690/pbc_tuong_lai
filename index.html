@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phan Boi Chau Future School</title>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { margin: 0; background-color: #0b0f1a; color: white; font-family: sans-serif; overflow-x: hidden; }
+        .custom-scrollbar::-webkit-scrollbar { width: 5px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 10px; }
+        @keyframes fade-in-up { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade-in-up { animation: fade-in-up 0.5s ease-out forwards; }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const { 
+            MessageSquare, Send, Play, Leaf, Atom, Calculator, Globe, Bot, 
+            ChevronDown, User, Heart, Sparkles, Menu, X, 
+            Music, Palette, BookOpen, Map, Zap, Coffee, Layout, Home,
+            Volume2, VolumeX, Cpu, Landmark, Wrench, Lightbulb, PenTool, 
+            ClipboardCheck, Clock, Target, Book, ShieldCheck, Users, MessageCircle, AlertTriangle, CheckCircle 
+        } = lucide;
+
+        // --- Dữ liệu chi tiết từ file của bạn ---
+        const initialSections = [
+            {
+                id: 'campus',
+                category: 'Không Gian Chung',
+                title: 'Khuôn Viên Xanh Thông Minh',
+                subtitle: 'Rừng trong phố',
+                icon: <Home className="w-6 h-6 text-green-500" />,
+                videoPlaceholder: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2301&auto=format&fit=crop",
+                description: "Toàn bộ sân trường được phủ xanh đa tầng. Đường đi lát gạch năng lượng mặt trời phát sáng vào ban đêm. Ghế đá tự động sạc điện thoại.",
+                color: "from-emerald-600 to-green-800",
+                comments: []
+            },
+            {
+                id: 'it',
+                category: 'Khoa Học Tự Nhiên',
+                title: 'Tin Học: Trung Tâm Lập Trình Lượng Tử',
+                subtitle: 'Kiến tạo thế giới số',
+                icon: <Cpu className="w-6 h-6 text-cyan-400" />,
+                videoPlaceholder: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2670&auto=format&fit=crop",
+                description: "Không gian học lập trình trong môi trường thực tế ảo (VR Coding). Học sinh tương tác trực tiếp với các khối dữ liệu 3D.",
+                color: "from-cyan-500 to-blue-600",
+                comments: [{ user: "CLB Tin học", text: "Phòng này có máy tính lượng tử mô phỏng không ạ?", likes: 56 }]
+            },
+            {
+                id: 'hist',
+                category: 'Xã Hội & Ngôn Ngữ',
+                title: 'Lịch Sử: Cỗ Máy Thời Gian VR',
+                subtitle: 'Sống lại hào khí ngàn năm',
+                icon: <Landmark className="w-6 h-6 text-yellow-600" />,
+                videoPlaceholder: "https://images.unsplash.com/photo-1599939571322-792a326991f2?q=80&w=2574&auto=format&fit=crop",
+                description: "Bước vào buồng mô phỏng VR để quay về quá khứ, chứng kiến chiến thắng Bạch Đằng giang.",
+                color: "from-yellow-700 to-amber-900",
+                comments: []
+            }
+        ];
+
+        // --- Component Chatbot AI ---
+        const AIAssistant = () => {
+            const [isOpen, setIsOpen] = React.useState(false);
+            return (
+                <div className="fixed bottom-6 right-6 z-50">
+                    <button onClick={() => setIsOpen(!isOpen)} className="bg-blue-600 p-4 rounded-full shadow-lg hover:scale-110 transition-all flex items-center gap-2">
+                        {isOpen ? <X /> : <Bot />} <span className="font-bold">Chat AI</span>
+                    </button>
+                    {isOpen && (
+                        <div className="absolute bottom-20 right-0 w-80 h-96 bg-gray-900 border border-blue-500/30 rounded-2xl p-4 flex flex-col">
+                            <div className="flex-1 text-sm text-gray-300 overflow-y-auto">
+                                <div className="bg-blue-600/20 p-2 rounded mb-2">Xin chào! Tôi là trợ lý AI của PBC Future School. 🤖</div>
+                            </div>
+                            <input className="w-full bg-gray-800 p-2 rounded-full text-sm outline-none" placeholder="Hỏi về môn học..." />
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        // --- Component Chính ---
+        const App = () => {
+            return (
+                <div className="min-h-screen">
+                    <nav className="fixed top-0 w-full z-50 bg-black/40 backdrop-blur-md p-6 flex justify-between border-b border-white/10">
+                        <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 bg-blue-600 rounded flex items-center justify-center font-bold">P</div>
+                            <span className="tracking-widest font-light">PHAN BOI CHAU FUTURE SCHOOL</span>
+                        </div>
+                    </nav>
+
+                    <header className="pt-40 pb-20 text-center px-6">
+                        <h1 className="text-6xl md:text-8xl font-black bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-500">TRƯỜNG HỌC <br/> TƯƠNG LAI</h1>
+                        <p className="mt-6 text-gray-400 max-w-2xl mx-auto">Chào mừng bạn đến với mô hình giáo dục 2030 - Nơi tri thức hòa quyện cùng công nghệ.</p>
+                    </header>
+
+                    <main className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pb-40">
+                        {initialSections.map(s => (
+                            <div key={s.id} className="bg-white/5 border border-white/10 rounded-3xl overflow-hidden hover:border-blue-500 transition-all">
+                                <img src={s.videoPlaceholder} className="w-full h-48 object-cover" />
+                                <div className="p-6">
+                                    <div className="flex items-center gap-2 text-blue-400 text-xs mb-2">{s.icon} {s.category}</div>
+                                    <h3 className="text-xl font-bold mb-2">{s.title}</h3>
+                                    <p className="text-gray-400 text-sm leading-relaxed">{s.description}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </main>
+                    <AIAssistant />
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
